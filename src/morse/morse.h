@@ -15,11 +15,12 @@ typedef struct
 {
     uint32_t timer;
     morse_char_t morse_char;
+    bool led;
     bool buzzer;
-    button_s_t button;
+    button_s_t* button;
     uint32_t oled_display;
 } morse_decoder_s_t;
 
-void morse_decoder_init(void);
+void morse_decoder_init(morse_decoder_s_t*);
 
 #endif /* __MORSE_H */
