@@ -45,3 +45,12 @@ TEST_F(morse_decoder_test, morse_button_is_prssed_state_after_pressed_button)
 
     ASSERT_EQ(morse_decoder.morse_state, MORSE_BUTTON_IS_PRESSED);
 }
+
+TEST_F(morse_decoder_test, morse_led_is_on_after_pressed_button)
+{
+    set_mock_button_hardware_read_state(BUTTON_STATE_PRESSED);
+
+    morse_decoder_start(&morse_decoder);
+
+    ASSERT_TRUE(morse_decoder.led);
+}
