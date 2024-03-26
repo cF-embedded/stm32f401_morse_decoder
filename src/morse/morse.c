@@ -23,6 +23,7 @@ void morse_decoder_init(morse_decoder_s_t* morse_decoder, timer_hardware_s_t _ti
 void morse_decoder_start(morse_decoder_s_t* morse_decoder)
 {
     morse_decoder->morse_state = MORSE_BUTTON_IS_PRESSED;
+    morse_decoder->led = true;
 }
 
 morse_char_s_t get_morse_decoder_char(morse_decoder_s_t* morse_decoder)
