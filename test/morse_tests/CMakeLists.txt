@@ -23,7 +23,8 @@ set(CPP_SRCS
 set(C_SRCS
 	../../src/morse/morse.c
 	../../button/api/button.c
-	mocks/button_hardware_mock.c
+	mocks/button/button_hardware_mock.c
+	mocks/timer/timer_hardware_mock.c
 )
 
 set(INCLUDE_DIRS
