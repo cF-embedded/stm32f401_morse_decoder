@@ -6,7 +6,7 @@
 #ifndef __BUTTON_HARDWARE_MOCK_H
 #define __BUTTON_HARDWARE_MOCK_H
 
-#include "../../../button/api/button_hardware.h"
+#include "../../../../button/api/button_hardware.h"
 
 void mock_button_hardware_init(void);
 button_state_e_t mock_button_hardware_read_state(void);
