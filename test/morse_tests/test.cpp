@@ -17,8 +17,16 @@ class morse_decoder_test : public ::testing::Test
   protected:
     void SetUp() override
     {
-        mock_button_hardware_init();
-        mock_timer_hardware_init();
+        button_s_t button;
+        button_hardware_s_t hardware_button;
+        setup_button_hardware_with_mocks(&hardware_button);
+        button_init(&button, hardware_button);
+
+        timer_hardware_s_t hardware_timer;
+        setup_timer_hardware_with_mocks(&hardware_timer);
+
+        morse_decoder_s_t morse_decoder;
+        morse_decoder_init(&morse_decoder, hardware_timer, &button);
     }
 
     void TearDown() override {}
