@@ -12,4 +12,6 @@ void mock_timer_hardware_clear(void);
 /* helper functions for mocks */
 void set_mock_timer_hardware_time(time_ms_t);
 
+void setup_timer_hardware_with_mocks(timer_hardware_s_t*);
+
 #endif /*__TIMER_HARDWARE_MOCK_H */
