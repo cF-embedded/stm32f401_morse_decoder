@@ -9,6 +9,8 @@
 #define DOT_IN_MS  80
 #define DASH_IN_MS (DOT_IN_MS * 3)
 
+#define TIME_OFFSET 20
+
 #define BREAK_BETWEEN_CHAR_ELEMENTS (DOT_IN_MS * 1)
 #define BREAK_BETWEEN_CHAR          (DASH_IN_MS * 1)
 #define BREAK_BETWEEN_WORDS         (DASH_IN_MS * 3)
