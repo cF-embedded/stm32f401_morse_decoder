@@ -22,9 +22,27 @@ void morse_decoder_init(morse_decoder_s_t* morse_decoder, timer_hardware_s_t _ti
 
 void morse_decoder_start(morse_decoder_s_t* morse_decoder)
 {
-    morse_decoder->morse_state = MORSE_BUTTON_IS_PRESSED;
-    morse_decoder->led = true;
-    morse_decoder->buzzer = true;
+    switch(morse_decoder->morse_state)
+    {
+        case MORSE_INIT:
+        {
+            if(button_get_state(morse_decoder->button) == BUTTON_STATE_PRESSED)
+            {
+                morse_decoder->morse_state = MORSE_BUTTON_IS_PRESSED;
+            };
+            break;
+        }
+        case MORSE_BUTTON_IS_PRESSED:
+        {
+            morse_decoder->led = true;
+            morse_decoder->buzzer = true;
+            if(button_get_state(morse_decoder->button) == BUTTON_STATE_RELEASED)
+            {
+                morse_decoder->morse_state = MORSE_BUTTON_IS_RELEASED;
+            }
+            break;
+        }
+    }
 }
 
 morse_char_s_t get_morse_decoder_char(morse_decoder_s_t* morse_decoder)
