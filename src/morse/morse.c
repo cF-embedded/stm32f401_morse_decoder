@@ -16,10 +16,14 @@ void morse_decoder_init(morse_decoder_s_t* morse_decoder, timer_hardware_s_t _ti
     morse_decoder->timer.timer_hardware_init();
     morse_decoder->led = false;
     morse_decoder->buzzer = false;
+    morse_decoder->morse_state = MORSE_INIT;
     memset(&morse_decoder->morse_char, 0, sizeof(morse_char_s_t));
 }
 
-void morse_decoder_start(morse_decoder_s_t* morse_decoder) {}
+void morse_decoder_start(morse_decoder_s_t* morse_decoder)
+{
+    morse_decoder->morse_state = MORSE_BUTTON_IS_PRESSED;
+}
 
 morse_char_s_t get_morse_decoder_char(morse_decoder_s_t* morse_decoder)
 {
