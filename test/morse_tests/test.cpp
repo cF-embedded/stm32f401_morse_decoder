@@ -6,6 +6,7 @@
 extern "C"
 {
 #include "../../src/morse/morse.h"
+#include "../../src/morse/morse_times.h"
 #include "mocks/button/button_hardware_mock.h"
 #include "mocks/timer/timer_hardware_mock.h"
 }
@@ -108,4 +109,17 @@ TEST_F(morse_decoder_test, morse_timer_is_clear_after_released_button)
 
     time_ms_t time = mock_timer_hardware_get_system_time();
     ASSERT_EQ(time, 0);
+}
+
+TEST_F(morse_decoder_test, add_dot_to_buffer_after_button_pressed_for_certain_time)
+{
+    set_mock_button_hardware_read_state(BUTTON_STATE_PRESSED);
+    morse_decoder_start(&morse_decoder);
+
+    set_mock_timer_hardware_time(DOT_IN_MS + (TIME_OFFSET / 2));
+    set_mock_button_hardware_read_state(BUTTON_STATE_RELEASED);
+    morse_decoder_start(&morse_decoder);
+
+    time_ms_t time = mock_timer_hardware_get_system_time();
+    ASSERT_EQ(morse_decoder.morse_char[0], '.');
 }
