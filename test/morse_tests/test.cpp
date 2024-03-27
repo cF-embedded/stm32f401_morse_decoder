@@ -73,3 +73,14 @@ TEST_F(morse_decoder_test, morse_button_is_released_state_after_pressed_button_b
 
     ASSERT_EQ(morse_decoder.morse_state, MORSE_BUTTON_STATE_RELEASED);
 }
+
+TEST_F(morse_decoder_test, morse_timer_is_clear_after_pressed_button)
+{
+    set_mock_button_hardware_read_state(BUTTON_STATE_PRESSED);
+    set_mock_timer_hardware_time(0xFFFF);
+
+    morse_decoder_start(&morse_decoder);
+
+    time_ms_t time = mock_timer_hardware_get_system_time();
+    ASSERT_EQ(time, 0);
+}
