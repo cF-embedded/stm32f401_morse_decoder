@@ -14,6 +14,7 @@
 
 typedef struct
 {
+    time_ms_t actual_pressed_time;
     timer_hardware_s_t timer;
     morse_char_s_t morse_char;
     bool led;
