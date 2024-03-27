@@ -61,6 +61,12 @@ static morse_decoder_increment_element(morse_decoder_s_t* morse_decoder)
         morse_decoder->morse_char[morse_decoder->char_index] = '.';
         morse_decoder->char_index++;
     }
+
+    if(is_in_range(morse_decoder->actual_pressed_time, DASH_IN_MS, DASH_IN_MS + TIME_OFFSET))
+    {
+        morse_decoder->morse_char[morse_decoder->char_index] = '-';
+        morse_decoder->char_index++;
+    }
 }
 
 static is_in_range(time_ms_t time, time_ms_t min, time_ms_t max)
