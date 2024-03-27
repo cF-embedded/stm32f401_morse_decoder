@@ -120,6 +120,17 @@ TEST_F(morse_decoder_test, add_dot_to_buffer_after_button_pressed_for_certain_ti
     set_mock_button_hardware_read_state(BUTTON_STATE_RELEASED);
     morse_decoder_start(&morse_decoder);
 
-    time_ms_t time = mock_timer_hardware_get_system_time();
     ASSERT_EQ(morse_decoder.morse_char[0], '.');
+}
+
+TEST_F(morse_decoder_test, add_dash_to_buffer_after_button_pressed_for_certain_time)
+{
+    set_mock_button_hardware_read_state(BUTTON_STATE_PRESSED);
+    morse_decoder_start(&morse_decoder);
+
+    set_mock_timer_hardware_time(DASH_IN_MS + (TIME_OFFSET / 2));
+    set_mock_button_hardware_read_state(BUTTON_STATE_RELEASED);
+    morse_decoder_start(&morse_decoder);
+
+    ASSERT_EQ(morse_decoder.morse_char[0], '-');
 }
