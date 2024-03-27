@@ -35,4 +35,5 @@ void setup_button_hardware_with_mocks(button_hardware_s_t* hardware)
 {
     hardware->button_hardware_init = mock_button_hardware_init;
     hardware->button_hardware_get_system_time = mock_button_hardware_get_system_time;
+    hardware->button_hardware_read_state = mock_button_hardware_read_state;
 }
