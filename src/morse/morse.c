@@ -29,13 +29,13 @@ void morse_decoder_start(morse_decoder_s_t* morse_decoder)
             if(button_get_state(morse_decoder->button) == BUTTON_STATE_PRESSED)
             {
                 morse_decoder->morse_state = MORSE_BUTTON_IS_PRESSED;
+                morse_decoder->led = true;
+                morse_decoder->buzzer = true;
             };
             break;
         }
         case MORSE_BUTTON_IS_PRESSED:
         {
-            morse_decoder->led = true;
-            morse_decoder->buzzer = true;
             if(button_get_state(morse_decoder->button) == BUTTON_STATE_RELEASED)
             {
                 morse_decoder->morse_state = MORSE_BUTTON_IS_RELEASED;
