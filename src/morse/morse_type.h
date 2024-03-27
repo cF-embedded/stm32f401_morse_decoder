@@ -11,11 +11,9 @@
 typedef uint8_t dot_t;
 typedef uint8_t dash_t;
 
-typedef struct
-{
-    dot_t dot;
-    dash_t dash;
-} morse_char_s_t;
+#define MAX_ELEMENTS_LEN 4
+
+typedef char morse_char_t;
 
 typedef enum
 {

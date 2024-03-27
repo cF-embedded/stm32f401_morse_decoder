@@ -8,6 +8,9 @@
 #include "morse_times.h"
 #include <string.h>
 
+static morse_decoder_increment_element(morse_decoder_s_t*);
+static is_in_range(time_ms_t, time_ms_t, time_ms_t);
+
 void morse_decoder_init(morse_decoder_s_t* morse_decoder, timer_hardware_s_t _timer, button_s_t* _button)
 {
     morse_decoder->button = _button;
@@ -18,7 +21,8 @@ void morse_decoder_init(morse_decoder_s_t* morse_decoder, timer_hardware_s_t _ti
     morse_decoder->led = false;
     morse_decoder->buzzer = false;
     morse_decoder->morse_state = MORSE_INIT;
-    memset(&morse_decoder->morse_char, 0, sizeof(morse_char_s_t));
+    memset(&morse_decoder->morse_char, 0, sizeof(morse_decoder->morse_char));
+    morse_decoder->char_index = 0;
 }
 
 void morse_decoder_start(morse_decoder_s_t* morse_decoder)
@@ -44,12 +48,24 @@ void morse_decoder_start(morse_decoder_s_t* morse_decoder)
                 morse_decoder->timer.timer_hardware_clear();
                 morse_decoder->morse_state = MORSE_BUTTON_STATE_RELEASED;
             }
+            morse_decoder_increment_element(morse_decoder);
             break;
         }
     }
 }
 
-morse_char_s_t get_morse_decoder_char(morse_decoder_s_t* morse_decoder)
+static morse_decoder_increment_element(morse_decoder_s_t* morse_decoder)
 {
-    morse_char_s_t morse_char_tmp = {0, 0};
+    if(is_in_range(morse_decoder->actual_pressed_time, DOT_IN_MS, DOT_IN_MS + TIME_OFFSET))
+    {
+        morse_decoder->morse_char[morse_decoder->char_index] = '.';
+        morse_decoder->char_index++;
+    }
 }
+
+static is_in_range(time_ms_t time, time_ms_t min, time_ms_t max)
+{
+    return (time <= max) && (time >= min);
+}
+
+morse_char_t get_morse_decoder_char(morse_decoder_s_t* morse_decoder) {}

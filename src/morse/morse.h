@@ -16,7 +16,8 @@ typedef struct
 {
     time_ms_t actual_pressed_time;
     timer_hardware_s_t timer;
-    morse_char_s_t morse_char;
+    uint8_t char_index;
+    morse_char_t morse_char[MAX_ELEMENTS_LEN];
     bool led;
     bool buzzer;
     button_s_t* button;
@@ -26,6 +27,6 @@ typedef struct
 
 void morse_decoder_init(morse_decoder_s_t*, timer_hardware_s_t, button_s_t*);
 void morse_decoder_start(morse_decoder_s_t*);
-morse_char_s_t get_morse_decoder_char(morse_decoder_s_t*);
+morse_char_t get_morse_decoder_char(morse_decoder_s_t*);
 
 #endif /* __MORSE_H */
