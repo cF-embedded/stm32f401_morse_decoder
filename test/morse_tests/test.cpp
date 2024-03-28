@@ -145,3 +145,14 @@ TEST_F(morse_decoder_test, morse_led_is_off_after_button_released)
 
     ASSERT_FALSE(morse_decoder.led);
 }
+
+TEST_F(morse_decoder_test, morse_buzzer_is_off_after_button_released)
+{
+    set_mock_button_hardware_read_state(BUTTON_STATE_PRESSED);
+    morse_decoder_start(&morse_decoder);
+
+    set_mock_button_hardware_read_state(BUTTON_STATE_RELEASED);
+    morse_decoder_start(&morse_decoder);
+
+    ASSERT_FALSE(morse_decoder.buzzer);
+}
