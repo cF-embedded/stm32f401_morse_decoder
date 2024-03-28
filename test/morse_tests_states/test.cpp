@@ -7,8 +7,8 @@ extern "C"
 {
 #include "../../src/morse/morse.h"
 #include "../../src/morse/morse_times.h"
-#include "mocks/button/button_hardware_mock.h"
-#include "mocks/timer/timer_hardware_mock.h"
+#include "../mocks/button/button_hardware_mock.h"
+#include "../mocks/timer/timer_hardware_mock.h"
 }
 
 #include <gtest/gtest.h>
