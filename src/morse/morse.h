@@ -27,6 +27,6 @@ typedef struct
 
 void morse_decoder_init(morse_decoder_s_t*, timer_hardware_s_t, button_s_t*);
 void morse_decoder_start(morse_decoder_s_t*);
-morse_char_t get_morse_decoder_char(morse_decoder_s_t*);
+char morse_decoder_get_decoded_char(morse_decoder_s_t*);
 
 #endif /* __MORSE_H */

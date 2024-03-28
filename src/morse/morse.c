@@ -5,6 +5,7 @@
  ******************************************************************************/
 
 #include "morse.h"
+#include "morse_characters.h"
 #include "morse_times.h"
 #include <string.h>
 
@@ -76,4 +77,17 @@ static is_in_range(time_ms_t time, time_ms_t min, time_ms_t max)
     return (time <= max) && (time >= min);
 }
 
-morse_char_t get_morse_decoder_char(morse_decoder_s_t* morse_decoder) {}
+char morse_decoder_get_decoded_char(morse_decoder_s_t* morse_decoder)
+{
+    char decoded_char = ' ';
+
+    for(uint32_t i = 0; i < (sizeof(morse_table) / sizeof(morse_table[0])); i++)
+    {
+        if(strcmp(morse_decoder->morse_char, morse_table[i].morse_char) == 0)
+        {
+            decoded_char = morse_table[i].ascii_char;
+        }
+    }
+
+    return decoded_char;
+}
