@@ -41,3 +41,11 @@ TEST_F(morse_decoder_get_char_test, morse_get_E_char)
     char morse_char = morse_decoder_get_decoded_char(&morse_decoder);
     ASSERT_EQ(morse_char, 'E');
 }
+
+TEST_F(morse_decoder_get_char_test, morse_get_A_char)
+{
+    strcpy(morse_decoder.morse_char, ".-  ");
+
+    char morse_char = morse_decoder_get_decoded_char(&morse_decoder);
+    ASSERT_EQ(morse_char, 'A');
+}
