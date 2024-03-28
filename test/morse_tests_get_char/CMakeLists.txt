@@ -26,6 +26,7 @@ set(C_SRCS
 	../mocks/button/button_hardware_mock.c
 	../mocks/timer/timer_hardware_mock.c
 	../mocks/led/led_hardware_mock.c
+	../mocks/buzzer/buzzer_hardware_mock.c
 )
 
 set(INCLUDE_DIRS

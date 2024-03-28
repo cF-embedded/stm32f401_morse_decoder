@@ -8,6 +8,7 @@ extern "C"
 #include "../../src/morse/morse.h"
 #include "../../src/morse/morse_times.h"
 #include "../mocks/button/button_hardware_mock.h"
+#include "../mocks/buzzer/buzzer_hardware_mock.h"
 #include "../mocks/led/led_hardware_mock.h"
 #include "../mocks/timer/timer_hardware_mock.h"
 }
@@ -30,7 +31,10 @@ class morse_decoder_test : public ::testing::Test
 
         led_hardware_s_t hardware_led;
         setup_led_hardware_with_mocks(&hardware_led);
-        morse_decoder_init(&morse_decoder, hardware_led, hardware_timer, &button);
+
+        buzzer_hardware_s_t hardware_buzzer;
+        setup_buzzer_hardware_with_mocks(&hardware_buzzer);
+        morse_decoder_init(&morse_decoder, hardware_led, hardware_buzzer, hardware_timer, &button);
     }
 
     void TearDown() override {}
@@ -56,7 +60,7 @@ TEST_F(morse_decoder_test, morse_buzzer_is_on_after_pressed_button)
 
     morse_decoder_start(&morse_decoder);
 
-    ASSERT_TRUE(morse_decoder.buzzer);
+    ASSERT_TRUE(get_mock_buzzer_hardware_state());
 }
 
 TEST_F(morse_decoder_test, morse_button_is_pressed_state_after_pressed_button)
@@ -157,5 +161,5 @@ TEST_F(morse_decoder_test, morse_buzzer_is_off_after_button_released)
     set_mock_button_hardware_read_state(BUTTON_STATE_RELEASED);
     morse_decoder_start(&morse_decoder);
 
-    ASSERT_FALSE(morse_decoder.buzzer);
+    ASSERT_FALSE(get_mock_buzzer_hardware_state());
 }
