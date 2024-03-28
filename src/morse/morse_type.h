@@ -11,7 +11,8 @@
 typedef uint8_t dot_t;
 typedef uint8_t dash_t;
 
-#define MAX_ELEMENTS_LEN 4
+/* 4 elements of morse char plus null terminator */
+#define MAX_ELEMENTS_LEN (4 + 1)
 
 typedef char morse_char_t;
 

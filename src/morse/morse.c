@@ -76,4 +76,7 @@ static is_in_range(time_ms_t time, time_ms_t min, time_ms_t max)
     return (time <= max) && (time >= min);
 }
 
-morse_char_t get_morse_decoder_char(morse_decoder_s_t* morse_decoder) {}
+char morse_decoder_get_decoded_char(morse_decoder_s_t* morse_decoder)
+{
+    return 'E';
+}
