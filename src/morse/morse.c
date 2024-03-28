@@ -7,10 +7,11 @@
 #include "morse.h"
 #include "morse_characters.h"
 #include "morse_times.h"
+#include <stdbool.h>
 #include <string.h>
 
-static morse_decoder_increment_element(morse_decoder_s_t*);
-static is_in_range(time_ms_t, time_ms_t, time_ms_t);
+static void morse_decoder_increment_element(morse_decoder_s_t*);
+static bool is_in_range(time_ms_t, time_ms_t, time_ms_t);
 
 void morse_decoder_init(morse_decoder_s_t* morse_decoder, led_hardware_s_t _led, buzzer_hardware_s_t _buzzer, timer_hardware_s_t _timer, button_s_t* _button)
 {
@@ -59,7 +60,7 @@ void morse_decoder_start(morse_decoder_s_t* morse_decoder)
     }
 }
 
-static morse_decoder_increment_element(morse_decoder_s_t* morse_decoder)
+static void morse_decoder_increment_element(morse_decoder_s_t* morse_decoder)
 {
     if(is_in_range(morse_decoder->actual_pressed_time, DOT_IN_MS, DOT_IN_MS + TIME_OFFSET))
     {
@@ -74,7 +75,7 @@ static morse_decoder_increment_element(morse_decoder_s_t* morse_decoder)
     }
 }
 
-static is_in_range(time_ms_t time, time_ms_t min, time_ms_t max)
+static bool is_in_range(time_ms_t time, time_ms_t min, time_ms_t max)
 {
     return (time <= max) && (time >= min);
 }
