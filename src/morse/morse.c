@@ -45,8 +45,8 @@ void morse_decoder_start(morse_decoder_s_t* morse_decoder)
             if(button_get_state(morse_decoder->button) == BUTTON_STATE_RELEASED)
             {
                 morse_decoder->actual_pressed_time = morse_decoder->timer.timer_hardware_get_system_time();
-                morse_decoder_increment_element(morse_decoder);
                 morse_decoder->timer.timer_hardware_clear();
+                morse_decoder_increment_element(morse_decoder);
                 morse_decoder->led = false;
                 morse_decoder->buzzer = false;
                 morse_decoder->morse_state = MORSE_BUTTON_STATE_RELEASED;
