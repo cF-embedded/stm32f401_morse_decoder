@@ -5,7 +5,8 @@
 /.vscode
 
 # Folder with tests out
-test/morse_tests/out
+test/morse_tests_states/out
+test/morse_tests_get_char/out
 
 # Prerequisites
 *.d
