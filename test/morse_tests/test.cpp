@@ -134,3 +134,14 @@ TEST_F(morse_decoder_test, add_dash_to_buffer_after_button_pressed_for_certain_t
 
     ASSERT_EQ(morse_decoder.morse_char[0], '-');
 }
+
+TEST_F(morse_decoder_test, morse_led_is_off_after_button_released)
+{
+    set_mock_button_hardware_read_state(BUTTON_STATE_PRESSED);
+    morse_decoder_start(&morse_decoder);
+
+    set_mock_button_hardware_read_state(BUTTON_STATE_RELEASED);
+    morse_decoder_start(&morse_decoder);
+
+    ASSERT_FALSE(morse_decoder.led);
+}
