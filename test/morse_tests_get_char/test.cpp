@@ -8,6 +8,7 @@ extern "C"
 #include "../../src/morse/morse.h"
 #include "../../src/morse/morse_type.h"
 #include "../mocks/button/button_hardware_mock.h"
+#include "../mocks/led/led_hardware_mock.h"
 #include "../mocks/timer/timer_hardware_mock.h"
 #include <string.h>
 }
@@ -28,7 +29,9 @@ class morse_decoder_get_char_test : public ::testing::Test
         timer_hardware_s_t hardware_timer;
         setup_timer_hardware_with_mocks(&hardware_timer);
 
-        morse_decoder_init(&morse_decoder, hardware_timer, &button);
+        led_hardware_s_t hardware_led;
+        setup_led_hardware_with_mocks(&hardware_led);
+        morse_decoder_init(&morse_decoder, hardware_led, hardware_timer, &button);
     }
 
     void TearDown() override {}
