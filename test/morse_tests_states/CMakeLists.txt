@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(morse_tests)
+project(morse_tests_states)
 
 set(CMAKE_BUILD_TYPE Debug)
 
