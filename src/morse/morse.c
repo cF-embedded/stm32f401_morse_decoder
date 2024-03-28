@@ -12,17 +12,18 @@
 static morse_decoder_increment_element(morse_decoder_s_t*);
 static is_in_range(time_ms_t, time_ms_t, time_ms_t);
 
-void morse_decoder_init(morse_decoder_s_t* morse_decoder, timer_hardware_s_t _timer, button_s_t* _button)
+void morse_decoder_init(morse_decoder_s_t* morse_decoder, led_hardware_s_t _led, timer_hardware_s_t _timer, button_s_t* _button)
 {
     morse_decoder->button = _button;
     morse_decoder->timer = _timer;
+    morse_decoder->led = _led;
+    morse_decoder->led.led_hardware_init();
     morse_decoder->button->hardware.button_hardware_init();
     morse_decoder->timer.timer_hardware_init();
     morse_decoder->actual_pressed_time = 0;
-    morse_decoder->led = false;
     morse_decoder->buzzer = false;
     morse_decoder->morse_state = MORSE_INIT;
-    memset(&morse_decoder->morse_char, 0, sizeof(morse_decoder->morse_char));
+    memset(&morse_decoder->morse_char, ' ', sizeof(morse_decoder->morse_char));
     morse_decoder->char_index = 0;
 }
 
@@ -34,7 +35,7 @@ void morse_decoder_start(morse_decoder_s_t* morse_decoder)
         {
             if(button_get_state(morse_decoder->button) == BUTTON_STATE_PRESSED)
             {
-                morse_decoder->led = true;
+                morse_decoder->led.led_hardware_on();
                 morse_decoder->buzzer = true;
                 morse_decoder->timer.timer_hardware_clear();
                 morse_decoder->morse_state = MORSE_BUTTON_STATE_PRESSED;
@@ -48,7 +49,7 @@ void morse_decoder_start(morse_decoder_s_t* morse_decoder)
                 morse_decoder->actual_pressed_time = morse_decoder->timer.timer_hardware_get_system_time();
                 morse_decoder->timer.timer_hardware_clear();
                 morse_decoder_increment_element(morse_decoder);
-                morse_decoder->led = false;
+                morse_decoder->led.led_hardware_off();
                 morse_decoder->buzzer = false;
                 morse_decoder->morse_state = MORSE_BUTTON_STATE_RELEASED;
             }
