@@ -163,3 +163,14 @@ TEST_F(morse_decoder_test, morse_buzzer_is_off_after_button_released)
 
     ASSERT_FALSE(get_mock_buzzer_hardware_state());
 }
+
+TEST_F(morse_decoder_test, morse_button_state_pressed_too_long_state_after_button_pressed_to_long)
+{
+    morse_decoder.morse_state = MORSE_BUTTON_STATE_PRESSED;
+    set_mock_button_hardware_read_state(BUTTON_STATE_PRESSED);
+    set_mock_timer_hardware_time(BREAK_BETWEEN_WORDS + (TIME_OFFSET / 2));
+
+    morse_decoder_start(&morse_decoder);
+
+    ASSERT_EQ(morse_decoder.morse_state, MORSE_BUTTON_STATE_PRESSED_TOO_LONG);
+}
