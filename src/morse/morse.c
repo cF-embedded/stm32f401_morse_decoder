@@ -11,6 +11,7 @@
 #include <string.h>
 
 static void morse_decoder_increment_element(morse_decoder_s_t*);
+static void morse_decoder_clean_char(morse_decoder_s_t*);
 static bool is_in_range(time_ms_t, time_ms_t, time_ms_t);
 
 void morse_decoder_init(morse_decoder_s_t* morse_decoder, led_hardware_s_t _led, buzzer_hardware_s_t _buzzer, timer_hardware_s_t _timer, button_s_t* _button)
@@ -46,10 +47,6 @@ void morse_decoder_start(morse_decoder_s_t* morse_decoder)
         }
         case MORSE_BUTTON_STATE_PRESSED:
         {
-            if(morse_decoder->timer.timer_hardware_get_system_time() > BREAK_BETWEEN_WORDS)
-            {
-                morse_decoder->morse_state = MORSE_BUTTON_STATE_PRESSED_TOO_LONG;
-            }
             if(button_get_state(morse_decoder->button) == BUTTON_STATE_RELEASED)
             {
                 morse_decoder->actual_pressed_time = morse_decoder->timer.timer_hardware_get_system_time();
@@ -58,6 +55,11 @@ void morse_decoder_start(morse_decoder_s_t* morse_decoder)
                 morse_decoder->led.led_hardware_off();
                 morse_decoder->buzzer.buzzer_hardware_off();
                 morse_decoder->morse_state = MORSE_BUTTON_STATE_RELEASED;
+            }
+            else if(morse_decoder->timer.timer_hardware_get_system_time() > BREAK_BETWEEN_WORDS)
+            {
+                morse_decoder_clean_char(morse_decoder);
+                morse_decoder->morse_state = MORSE_BUTTON_STATE_PRESSED_TOO_LONG;
             }
             break;
         }
@@ -97,4 +99,9 @@ char morse_decoder_get_decoded_char(morse_decoder_s_t* morse_decoder)
     }
 
     return decoded_char;
+}
+
+static void morse_decoder_clean_char(morse_decoder_s_t* morse_decoder)
+{
+    memset(morse_decoder->morse_char, ' ', sizeof(morse_decoder->morse_char));
 }
