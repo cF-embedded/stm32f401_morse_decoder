@@ -174,3 +174,14 @@ TEST_F(morse_decoder_test, morse_button_state_pressed_too_long_state_after_butto
 
     ASSERT_EQ(morse_decoder.morse_state, MORSE_BUTTON_STATE_PRESSED_TOO_LONG);
 }
+
+TEST_F(morse_decoder_test, morse_char_clear_in_morse_button_state_pressed_too_long)
+{
+    morse_decoder.morse_state = MORSE_BUTTON_STATE_PRESSED;
+    set_mock_button_hardware_read_state(BUTTON_STATE_PRESSED);
+    set_mock_timer_hardware_time(BREAK_BETWEEN_WORDS + (TIME_OFFSET / 2));
+
+    morse_decoder_start(&morse_decoder);
+
+    ASSERT_STREQ(morse_decoder.morse_char, "     ");
+}
