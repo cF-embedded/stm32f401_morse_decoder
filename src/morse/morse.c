@@ -46,6 +46,10 @@ void morse_decoder_start(morse_decoder_s_t* morse_decoder)
         }
         case MORSE_BUTTON_STATE_PRESSED:
         {
+            if(morse_decoder->timer.timer_hardware_get_system_time() > BREAK_BETWEEN_WORDS)
+            {
+                morse_decoder->morse_state = MORSE_BUTTON_STATE_PRESSED_TOO_LONG;
+            }
             if(button_get_state(morse_decoder->button) == BUTTON_STATE_RELEASED)
             {
                 morse_decoder->actual_pressed_time = morse_decoder->timer.timer_hardware_get_system_time();
