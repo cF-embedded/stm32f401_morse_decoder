@@ -26,7 +26,7 @@ void morse_decoder_init(morse_decoder_s_t* morse_decoder, led_hardware_s_t _led,
     morse_decoder->timer.timer_hardware_init();
     morse_decoder->actual_pressed_time = 0;
     morse_decoder->morse_state = MORSE_INIT;
-    memset(&morse_decoder->morse_char, ' ', sizeof(morse_decoder->morse_char));
+    morse_decoder_clean_char(morse_decoder);
     morse_decoder->char_index = 0;
 }
 
@@ -59,6 +59,7 @@ void morse_decoder_start(morse_decoder_s_t* morse_decoder)
             else if(morse_decoder->timer.timer_hardware_get_system_time() > BREAK_BETWEEN_WORDS)
             {
                 morse_decoder_clean_char(morse_decoder);
+                morse_decoder->buzzer.buzzer_hardware_off();
                 morse_decoder->morse_state = MORSE_BUTTON_STATE_PRESSED_TOO_LONG;
             }
             break;
