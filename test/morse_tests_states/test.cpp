@@ -42,7 +42,7 @@ class morse_decoder_test : public ::testing::Test
 
 TEST_F(morse_decoder_test, morse_init_state_after_init)
 {
-    ASSERT_EQ(morse_decoder.morse_state, MORSE_INIT);
+    ASSERT_EQ(morse_decoder.morse_state, MORSE_STATE_INIT);
 }
 
 TEST_F(morse_decoder_test, morse_led_is_on_after_pressed_button)
@@ -69,17 +69,17 @@ TEST_F(morse_decoder_test, morse_button_is_pressed_state_after_pressed_button)
 
     morse_decoder_start(&morse_decoder);
 
-    ASSERT_EQ(morse_decoder.morse_state, MORSE_BUTTON_STATE_PRESSED);
+    ASSERT_EQ(morse_decoder.morse_state, MORSE_STATE_BUTTON_PRESSED);
 }
 
 TEST_F(morse_decoder_test, morse_button_is_released_state_after_pressed_button_before)
 {
-    morse_decoder.morse_state = MORSE_BUTTON_STATE_PRESSED;
+    morse_decoder.morse_state = MORSE_STATE_BUTTON_PRESSED;
     set_mock_button_hardware_read_state(BUTTON_STATE_RELEASED);
 
     morse_decoder_start(&morse_decoder);
 
-    ASSERT_EQ(morse_decoder.morse_state, MORSE_BUTTON_STATE_RELEASED);
+    ASSERT_EQ(morse_decoder.morse_state, MORSE_STATE_BUTTON_RELEASED);
 }
 
 TEST_F(morse_decoder_test, morse_timer_is_clear_after_pressed_button)
@@ -164,20 +164,20 @@ TEST_F(morse_decoder_test, morse_buzzer_is_off_after_button_released)
     ASSERT_FALSE(get_mock_buzzer_hardware_state());
 }
 
-TEST_F(morse_decoder_test, morse_button_state_pressed_too_long_state_after_button_pressed_to_long)
+TEST_F(morse_decoder_test, MORSE_STATE_BUTTON_PRESSED_TOO_LONG_state_after_button_pressed_to_long)
 {
-    morse_decoder.morse_state = MORSE_BUTTON_STATE_PRESSED;
+    morse_decoder.morse_state = MORSE_STATE_BUTTON_PRESSED;
     set_mock_button_hardware_read_state(BUTTON_STATE_PRESSED);
     set_mock_timer_hardware_time(BREAK_BETWEEN_WORDS + (TIME_OFFSET / 2));
 
     morse_decoder_start(&morse_decoder);
 
-    ASSERT_EQ(morse_decoder.morse_state, MORSE_BUTTON_STATE_PRESSED_TOO_LONG);
+    ASSERT_EQ(morse_decoder.morse_state, MORSE_STATE_BUTTON_PRESSED_TOO_LONG);
 }
 
-TEST_F(morse_decoder_test, morse_char_clear_in_morse_button_state_pressed_too_long)
+TEST_F(morse_decoder_test, morse_char_clear_in_MORSE_STATE_BUTTON_PRESSED_TOO_LONG)
 {
-    morse_decoder.morse_state = MORSE_BUTTON_STATE_PRESSED;
+    morse_decoder.morse_state = MORSE_STATE_BUTTON_PRESSED;
     set_mock_button_hardware_read_state(BUTTON_STATE_PRESSED);
     set_mock_timer_hardware_time(BREAK_BETWEEN_WORDS + (TIME_OFFSET / 2));
 
@@ -188,7 +188,7 @@ TEST_F(morse_decoder_test, morse_char_clear_in_morse_button_state_pressed_too_lo
 
 TEST_F(morse_decoder_test, buzzer_off_after_button_pressed_to_long)
 {
-    morse_decoder.morse_state = MORSE_INIT;
+    morse_decoder.morse_state = MORSE_STATE_INIT;
     set_mock_button_hardware_read_state(BUTTON_STATE_PRESSED);
 
     morse_decoder_start(&morse_decoder);
@@ -201,7 +201,7 @@ TEST_F(morse_decoder_test, buzzer_off_after_button_pressed_to_long)
 
 TEST_F(morse_decoder_test, led_off_after_button_pressed_to_long)
 {
-    morse_decoder.morse_state = MORSE_INIT;
+    morse_decoder.morse_state = MORSE_STATE_INIT;
     set_mock_button_hardware_read_state(BUTTON_STATE_PRESSED);
 
     morse_decoder_start(&morse_decoder);
@@ -214,10 +214,10 @@ TEST_F(morse_decoder_test, led_off_after_button_pressed_to_long)
 
 TEST_F(morse_decoder_test, morse_init_state_after_released_button_in_morse_state_button_pressed_too_long)
 {
-    morse_decoder.morse_state = MORSE_BUTTON_STATE_PRESSED_TOO_LONG;
+    morse_decoder.morse_state = MORSE_STATE_BUTTON_PRESSED_TOO_LONG;
     set_mock_button_hardware_read_state(BUTTON_STATE_RELEASED);
 
     morse_decoder_start(&morse_decoder);
 
-    ASSERT_EQ(morse_decoder.morse_state, MORSE_INIT);
+    ASSERT_EQ(morse_decoder.morse_state, MORSE_STATE_INIT);
 }

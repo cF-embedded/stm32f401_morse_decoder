@@ -31,7 +31,7 @@ void morse_decoder_init(morse_decoder_s_t* morse_decoder, led_hardware_s_t _led,
     morse_decoder->button->hardware.button_hardware_init();
     morse_decoder->timer.timer_hardware_init();
     morse_decoder->actual_pressed_time = 0;
-    morse_decoder->morse_state = MORSE_INIT;
+    morse_decoder->morse_state = MORSE_STATE_INIT;
     morse_decoder_clean_char(morse_decoder);
     morse_decoder->char_index = 0;
 }
@@ -40,17 +40,17 @@ void morse_decoder_start(morse_decoder_s_t* morse_decoder)
 {
     switch(morse_decoder->morse_state)
     {
-        case MORSE_INIT:
+        case MORSE_STATE_INIT:
         {
             if(button_get_state(morse_decoder->button) == BUTTON_STATE_PRESSED)
             {
                 morse_decoder_on_led_buzzer(morse_decoder);
                 morse_decoder->timer.timer_hardware_clear();
-                morse_decoder->morse_state = MORSE_BUTTON_STATE_PRESSED;
+                morse_decoder->morse_state = MORSE_STATE_BUTTON_PRESSED;
             };
             break;
         }
-        case MORSE_BUTTON_STATE_PRESSED:
+        case MORSE_STATE_BUTTON_PRESSED:
         {
             if(button_get_state(morse_decoder->button) == BUTTON_STATE_RELEASED)
             {
@@ -58,21 +58,21 @@ void morse_decoder_start(morse_decoder_s_t* morse_decoder)
                 morse_decoder->timer.timer_hardware_clear();
                 morse_decoder_increment_element(morse_decoder);
                 morse_decoder_off_led_buzzer(morse_decoder);
-                morse_decoder->morse_state = MORSE_BUTTON_STATE_RELEASED;
+                morse_decoder->morse_state = MORSE_STATE_BUTTON_RELEASED;
             }
             else if(morse_decoder->timer.timer_hardware_get_system_time() > BREAK_BETWEEN_WORDS)
             {
                 morse_decoder_clean_char(morse_decoder);
                 morse_decoder_off_led_buzzer(morse_decoder);
-                morse_decoder->morse_state = MORSE_BUTTON_STATE_PRESSED_TOO_LONG;
+                morse_decoder->morse_state = MORSE_STATE_BUTTON_PRESSED_TOO_LONG;
             }
             break;
         }
-        case MORSE_BUTTON_STATE_PRESSED_TOO_LONG:
+        case MORSE_STATE_BUTTON_PRESSED_TOO_LONG:
         {
             if(button_get_state(morse_decoder->button) == BUTTON_STATE_RELEASED)
             {
-                morse_decoder->morse_state = MORSE_INIT;
+                morse_decoder->morse_state = MORSE_STATE_INIT;
             }
             break;
         }
