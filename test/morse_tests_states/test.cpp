@@ -211,3 +211,13 @@ TEST_F(morse_decoder_test, led_off_after_button_pressed_to_long)
 
     ASSERT_FALSE(get_mock_led_hardware_state());
 }
+
+TEST_F(morse_decoder_test, morse_init_state_after_released_button_in_morse_state_button_pressed_too_long)
+{
+    morse_decoder.morse_state = MORSE_BUTTON_STATE_PRESSED_TOO_LONG;
+    set_mock_button_hardware_read_state(BUTTON_STATE_RELEASED);
+
+    morse_decoder_start(&morse_decoder);
+
+    ASSERT_EQ(morse_decoder.morse_state, MORSE_INIT);
+}
