@@ -60,6 +60,7 @@ void morse_decoder_start(morse_decoder_s_t* morse_decoder)
             {
                 morse_decoder_clean_char(morse_decoder);
                 morse_decoder->buzzer.buzzer_hardware_off();
+                morse_decoder->led.led_hardware_off();
                 morse_decoder->morse_state = MORSE_BUTTON_STATE_PRESSED_TOO_LONG;
             }
             break;
