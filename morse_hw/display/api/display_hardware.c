@@ -1,22 +1,33 @@
 #include "display_hardware.h"
 #include "../../inc/main.h"
+#include "../ssd1306/inc/GFX.h"
 
-static I2C_HandleTypeDef hi2c1;
+I2C_HandleTypeDef hi2c1;
 static DMA_HandleTypeDef hdma_i2c1_tx;
+
+/* periphal init */
+static void i2c_init(void);
+static void dma_init(void);
 
 void display_hardware_init(void)
 {
     i2c_init();
     dma_init();
+    SSD1306_init();
 }
 
-void display_hardware_set_char(void) {}
-void display_hardware_clear(void) {}
-void display_hardware_set_header(void) {}
+void display_hardware_set_char(char char_to_display) {}
 
-/* periphal init */
-static void i2c_init(void);
-static void dma_init(void);
+void display_hardware_clear(void)
+{
+    SSD1306_display_clear();
+}
+
+void display_hardware_set_header(void)
+{
+    GFX_draw_string(1, 20, "MORSE DECODER", WHITE, BLACK, 1, 1);
+    GFX_draw_string(2, 12, "cf-embedded.pl", WHITE, BLACK, 1, 1);
+}
 
 static void i2c_init(void)
 {
@@ -32,12 +43,12 @@ static void i2c_init(void)
 
     __HAL_RCC_GPIOB_CLK_ENABLE();
     GPIO_InitTypeDef GPIO_InitStruct = {0};
-    GPIO_InitStruct.Pin = GPIO_PIN_6 | GPIO_PIN_7;
+    GPIO_InitStruct.Pin = MORSE_DISPLAY_I2C_SCL | MORSE_DISPLAY_I2C_SDA;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
     GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+    HAL_GPIO_Init(MORSE_DISPLAY_I2C_PORT, &GPIO_InitStruct);
 
     __HAL_RCC_I2C1_CLK_ENABLE();
     if(HAL_I2C_Init(&hi2c1) != HAL_OK)

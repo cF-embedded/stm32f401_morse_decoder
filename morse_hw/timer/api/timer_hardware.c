@@ -1,7 +1,7 @@
 #include "timer_hardware.h"
 #include "../../inc/main.h"
 
-volatile static time_ms_t time_increment;
+static volatile time_ms_t time_increment;
 
 TIM_HandleTypeDef htim1;
 
@@ -38,10 +38,10 @@ void timer_hardware_init(void)
     time_increment = 0;
 
     HAL_NVIC_SetPriority(TIM1_BRK_TIM9_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(TIM1_BRK_TIM9_IRQHandler);
+    HAL_NVIC_EnableIRQ(TIM1_BRK_TIM9_IRQn);
 }
 
-time_ms_t time_hardware_get_system_time(void)
+time_ms_t timer_hardware_get_system_time(void)
 {
     return time_increment;
 }

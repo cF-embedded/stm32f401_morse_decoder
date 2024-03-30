@@ -9,7 +9,7 @@ void buzzer_hardware_init(void)
     __HAL_RCC_GPIOE_CLK_ENABLE();
 
     /*Configure GPIO pin Output Level */
-    HAL_GPIO_WritePin(MORSE_BUZZER_PORT, MORSE_BUZZER_PORT_PIN, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(MORSE_BUZZER_PORT, MORSE_BUZZER_PIN, GPIO_PIN_RESET);
 
     /*Configure GPIO pin : PE6 */
     GPIO_InitStruct.Pin = MORSE_BUZZER_PIN;

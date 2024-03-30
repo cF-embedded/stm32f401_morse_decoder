@@ -1,7 +1,7 @@
 #include "button_hardware.h"
 #include "../../inc/main.h"
 
-void button_hardware_init(void);
+void button_hardware_init(void)
 {
     GPIO_InitTypeDef GPIO_InitStruct = {0};
 
@@ -15,7 +15,7 @@ void button_hardware_init(void);
     HAL_GPIO_Init(MORSE_BUTTON_PORT, &GPIO_InitStruct);
 }
 
-button_state_e_t button_hardware_read_state(void);
+button_state_e_t button_hardware_read_state(void)
 {
     if(HAL_GPIO_ReadPin(MORSE_BUTTON_PORT, MORSE_BUTTON_PIN) == GPIO_PIN_SET)
     {
