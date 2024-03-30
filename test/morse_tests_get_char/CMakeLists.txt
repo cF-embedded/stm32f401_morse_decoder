@@ -27,6 +27,8 @@ set(C_SRCS
 	../mocks/timer/timer_hardware_mock.c
 	../mocks/led/led_hardware_mock.c
 	../mocks/buzzer/buzzer_hardware_mock.c
+	../mocks/display/display_hardware_mock.c
+	../../cbuf/cbuf.c
 )
 
 set(INCLUDE_DIRS
