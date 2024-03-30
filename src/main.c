@@ -15,6 +15,23 @@
  ******************************************************************************
  */
 #include "main.h"
+#include "../morse/inc/morse.h"
+#include "../morse_hw/button/api/button.h"
+#include "../morse_hw/button/api/button_hardware.h"
+#include "../morse_hw/buzzer/api/buzzer_hardware.h"
+#include "../morse_hw/display/api/display_hardware.h"
+#include "../morse_hw/led/api/led_hardware.h"
+#include "../morse_hw/timer/api/timer_hardware.h"
+
+extern const button_hardware_s_t button_hardware;
+extern const buzzer_hardware_s_t buzzer_hardware;
+extern const led_hardware_s_t led_hardware;
+extern const display_hardware_s_t display_hardware;
+extern const timer_hardware_s_t timer_hardware;
+
+morse_decoder_s_t morse_decoder;
+
+button_s_t morse_button;
 
 void SystemClock_Config(void);
 
@@ -26,8 +43,12 @@ int main(void)
 {
     HAL_Init();
     SystemClock_Config();
+    button_init(&morse_button, button_hardware);
+    morse_decoder_init(&morse_decoder, led_hardware, buzzer_hardware, timer_hardware, display_hardware, &morse_button);
     while(1)
-    {}
+    {
+        morse_decoder_start(&morse_decoder);
+    }
 }
 
 /**
