@@ -8,6 +8,8 @@
 
 #include "../../button/api/button.h"
 #include "../../buzzer/api/buzzer_hardware.h"
+#include "../../cbuf/cbuf.h"
+#include "../../display/api/display_hardware.h"
 #include "../../led/api/led_hardware.h"
 #include "../../timer/api/timer_hardware.h"
 #include "morse_type.h"
@@ -23,11 +25,12 @@ typedef struct
     led_hardware_s_t led;
     buzzer_hardware_s_t buzzer;
     button_s_t* button;
-    uint32_t oled_display;
+    cbuf_s_t cbuf;
+    display_hardware_s_t display;
     morse_states_e_t morse_state;
 } morse_decoder_s_t;
 
-void morse_decoder_init(morse_decoder_s_t*, led_hardware_s_t, buzzer_hardware_s_t, timer_hardware_s_t, button_s_t*);
+void morse_decoder_init(morse_decoder_s_t*, led_hardware_s_t, buzzer_hardware_s_t, timer_hardware_s_t, display_hardware_s_t, button_s_t*);
 void morse_decoder_start(morse_decoder_s_t*);
 char morse_decoder_get_decoded_char(morse_decoder_s_t*);
 
