@@ -16,7 +16,7 @@
 
 typedef struct
 {
-    time_ms_t actual_pressed_time;
+    time_ms_t actual_elapsed_time;
     timer_hardware_s_t timer;
     uint8_t char_index;
     morse_char_t morse_char[MAX_ELEMENTS_LEN];

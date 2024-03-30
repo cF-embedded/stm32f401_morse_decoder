@@ -30,7 +30,7 @@ void morse_decoder_init(morse_decoder_s_t* morse_decoder, led_hardware_s_t _led,
     morse_decoder->buzzer.buzzer_hardware_init();
     morse_decoder->button->hardware.button_hardware_init();
     morse_decoder->timer.timer_hardware_init();
-    morse_decoder->actual_pressed_time = 0;
+    morse_decoder->actual_elapsed_time = 0;
     morse_decoder->morse_state = MORSE_STATE_INIT;
     morse_decoder_clean_char(morse_decoder);
     morse_decoder->char_index = 0;
@@ -54,10 +54,10 @@ void morse_decoder_start(morse_decoder_s_t* morse_decoder)
         {
             if(button_get_state(morse_decoder->button) == BUTTON_STATE_RELEASED)
             {
-                morse_decoder->actual_pressed_time = morse_decoder->timer.timer_hardware_get_system_time();
+                morse_decoder->actual_elapsed_time = morse_decoder->timer.timer_hardware_get_system_time();
                 morse_decoder->timer.timer_hardware_clear();
-                morse_decoder_increment_element(morse_decoder);
                 morse_decoder_off_led_buzzer(morse_decoder);
+                morse_decoder_increment_element(morse_decoder);
                 morse_decoder->morse_state = MORSE_STATE_BUTTON_RELEASED;
             }
             else if(morse_decoder->timer.timer_hardware_get_system_time() > BREAK_BETWEEN_WORDS)
@@ -76,18 +76,25 @@ void morse_decoder_start(morse_decoder_s_t* morse_decoder)
             }
             break;
         }
+        case MORSE_STATE_BUTTON_RELEASED:
+        {
+            if(button_get_state(morse_decoder->button) == BUTTON_STATE_PRESSED)
+            {
+                morse_decoder->morse_state = MORSE_STATE_BUTTON_PRESSED;
+            }
+        }
     }
 }
 
 static void morse_decoder_increment_element(morse_decoder_s_t* morse_decoder)
 {
-    if(is_in_range(morse_decoder->actual_pressed_time, DOT_IN_MS, DOT_IN_MS + TIME_OFFSET))
+    if(is_in_range(morse_decoder->actual_elapsed_time, DOT_IN_MS, DOT_IN_MS + TIME_OFFSET))
     {
         morse_decoder->morse_char[morse_decoder->char_index] = '.';
         morse_decoder->char_index++;
     }
 
-    if(is_in_range(morse_decoder->actual_pressed_time, DASH_IN_MS, DASH_IN_MS + TIME_OFFSET))
+    else if(is_in_range(morse_decoder->actual_elapsed_time, DASH_IN_MS, DASH_IN_MS + TIME_OFFSET))
     {
         morse_decoder->morse_char[morse_decoder->char_index] = '-';
         morse_decoder->char_index++;
