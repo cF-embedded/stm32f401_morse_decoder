@@ -42,10 +42,6 @@ set(sources_SRCS
         src/system_stm32f4xx.c
         morse/src/morse.c
         morse_hw/button/api/button.c
-        periphal/src/dma.c
-        periphal/src/gpio.c
-        periphal/src/i2c.c
-        periphal/src/tim.c
         drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c
         drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c
         drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c
@@ -82,7 +78,7 @@ set(include_path_DIRS
          morse_hw/display/api
          morse_hw/led/api
          morse_hw/timer/api
-         periphal/inc
+         morse_hw/display/ssd1306/inc
          cbuf
     # Put here your include dirs, one in each line, relative to CMakeLists.txt file location
 )
