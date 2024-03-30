@@ -102,7 +102,7 @@ TEST_F(morse_decoder_test, actual_pressed_time_equal_time_after_released_button)
     set_mock_timer_hardware_time(0xFFFF);
     morse_decoder_start(&morse_decoder);
 
-    ASSERT_EQ(morse_decoder.actual_pressed_time, 0xFFFF);
+    ASSERT_EQ(morse_decoder.actual_elapsed_time, 0xFFFF);
 }
 
 TEST_F(morse_decoder_test, morse_timer_is_clear_after_released_button)
@@ -231,4 +231,15 @@ TEST_F(morse_decoder_test, morse_state_button_pressed_after_button_pressed_in_br
     morse_decoder_start(&morse_decoder);
 
     ASSERT_EQ(morse_decoder.morse_state, MORSE_STATE_BUTTON_PRESSED);
+}
+
+TEST_F(morse_decoder_test, morse_break_between_char_elements_elapsed_after_button_not_pressed_in_break_between_char_elements_time_in_morse_state_button_released)
+{
+    morse_decoder.morse_state = MORSE_STATE_BUTTON_RELEASED;
+    set_mock_button_hardware_read_state(BUTTON_STATE_RELEASED);
+    set_mock_timer_hardware_time(BREAK_BETWEEN_CHAR_ELEMENTS + (TIME_OFFSET * 2));
+
+    morse_decoder_start(&morse_decoder);
+
+    ASSERT_EQ(morse_decoder.morse_state, MORSE_STATE_BREAK_BETTWEN_CHAR_ELEMENTS_ELAPSED);
 }
