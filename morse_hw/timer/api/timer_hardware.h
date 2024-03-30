@@ -15,4 +15,8 @@ typedef struct
     void (*timer_hardware_clear)(void);
 } timer_hardware_s_t;
 
+void timer_hardware_init(void);
+time_ms_t timer_hardware_get_system_time(void);
+void timer_hardware_clear(void);
+
 #endif /* __TIMER_HARDWARE_H */

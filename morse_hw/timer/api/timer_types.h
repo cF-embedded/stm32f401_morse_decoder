@@ -8,6 +8,6 @@
 
 #include "stdint.h"
 
-typedef uint32_t time_ms_t;
+typedef uint64_t time_ms_t;
 
 #endif /* __TIMER_TYPES_H */
