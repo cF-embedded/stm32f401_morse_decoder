@@ -15,10 +15,6 @@
  ******************************************************************************
  */
 #include "main.h"
-#include "dma.h"
-#include "gpio.h"
-#include "i2c.h"
-#include "tim.h"
 
 void SystemClock_Config(void);
 
@@ -30,10 +26,6 @@ int main(void)
 {
     HAL_Init();
     SystemClock_Config();
-    MX_GPIO_Init();
-    MX_DMA_Init();
-    MX_TIM1_Init();
-    MX_I2C1_Init();
     while(1)
     {}
 }
