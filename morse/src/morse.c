@@ -4,9 +4,9 @@
  *author: cF-embedded.pl
  ******************************************************************************/
 
-#include "morse.h"
-#include "morse_characters.h"
-#include "morse_times.h"
+#include "../inc/morse.h"
+#include "../inc/morse_characters.h"
+#include "../inc/morse_times.h"
 #include <stdbool.h>
 #include <string.h>
 
