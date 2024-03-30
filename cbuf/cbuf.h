@@ -6,7 +6,7 @@
 
 #define CBUF_SIZE 32
 
-typedef uint32_t buffer_t;
+typedef char buffer_t;
 typedef size_t index_t;
 
 /* if buffer size changes, item must also change */
