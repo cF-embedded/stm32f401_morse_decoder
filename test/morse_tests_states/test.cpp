@@ -221,3 +221,14 @@ TEST_F(morse_decoder_test, morse_init_state_after_released_button_in_morse_state
 
     ASSERT_EQ(morse_decoder.morse_state, MORSE_STATE_INIT);
 }
+
+TEST_F(morse_decoder_test, morse_state_button_pressed_after_button_pressed_in_break_between_char_elements_time_in_morse_state_button_released)
+{
+    morse_decoder.morse_state = MORSE_STATE_BUTTON_RELEASED;
+    set_mock_button_hardware_read_state(BUTTON_STATE_PRESSED);
+    set_mock_timer_hardware_time(BREAK_BETWEEN_CHAR_ELEMENTS + (TIME_OFFSET / 2));
+
+    morse_decoder_start(&morse_decoder);
+
+    ASSERT_EQ(morse_decoder.morse_state, MORSE_STATE_BUTTON_PRESSED);
+}
