@@ -21,7 +21,7 @@ set(CPP_SRCS
 )
 
 set(C_SRCS
-	../../src/morse/morse.c
+	../../morse/src/morse.c
 	../../button/api/button.c
 	../mocks/button/button_hardware_mock.c
 	../mocks/timer/timer_hardware_mock.c
@@ -32,8 +32,9 @@ set(C_SRCS
 )
 
 set(INCLUDE_DIRS
-	../../src
+	../../morse
 )
+
 
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})

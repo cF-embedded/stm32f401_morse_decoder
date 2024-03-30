@@ -5,8 +5,8 @@
 
 extern "C"
 {
-#include "../../src/morse/morse.h"
-#include "../../src/morse/morse_type.h"
+#include "../../morse/inc/morse.h"
+#include "../../morse/inc/morse_type.h"
 #include "../mocks/button/button_hardware_mock.h"
 #include "../mocks/buzzer/buzzer_hardware_mock.h"
 #include "../mocks/display/display_hardware_mock.h"
