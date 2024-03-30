@@ -61,6 +61,18 @@ set(sources_SRCS
         drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c
         drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c
         cbuf/cbuf.c
+        morse_hw/button/api/button_hardware_callbacks.c
+        morse_hw/button/api/button_hardware.c
+        morse_hw/buzzer/api/buzzer_hardware_callbacks.c
+        morse_hw/buzzer/api/buzzer_hardware.c
+        morse_hw/display/api/display_hardware.c
+        morse_hw/display/api/display_hardware_callbacks.c
+        morse_hw/display/ssd1306/src/GFX.c
+        morse_hw/display/ssd1306/src/SSD1306.c
+        morse_hw/led/api/led_hardware_callbacks.c
+        morse_hw/led/api/led_hardware.c
+        morse_hw/timer/api/timer_hardware_callbacks.c
+        morse_hw/timer/api/timer_hardware.c
     # Put here your source files, one in each line, relative to CMakeLists.txt file location
 )
 
