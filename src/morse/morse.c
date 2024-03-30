@@ -78,7 +78,11 @@ void morse_decoder_start(morse_decoder_s_t* morse_decoder)
         }
         case MORSE_STATE_BUTTON_RELEASED:
         {
-            if(button_get_state(morse_decoder->button) == BUTTON_STATE_PRESSED)
+            if(morse_decoder->timer.timer_hardware_get_system_time() > (BREAK_BETWEEN_CHAR_ELEMENTS + TIME_OFFSET))
+            {
+                morse_decoder->morse_state = MORSE_STATE_BREAK_BETTWEN_CHAR_ELEMENTS_ELAPSED;
+            }
+            else if(button_get_state(morse_decoder->button) == BUTTON_STATE_PRESSED)
             {
                 morse_decoder->morse_state = MORSE_STATE_BUTTON_PRESSED;
             }
