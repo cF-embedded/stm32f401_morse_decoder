@@ -1,6 +1,9 @@
 # Folder with docs
 /docs
 
+# Folder with project out files
+build
+
 # .vscode Folder
 /.vscode
 
