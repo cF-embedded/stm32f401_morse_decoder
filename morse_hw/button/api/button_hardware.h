@@ -15,4 +15,11 @@ typedef struct
     button_state_e_t (*button_hardware_read_state)(void);
 } button_hardware_s_t;
 
+void button_hardware_init(void);
+button_state_e_t button_hardware_read_state(void);
+system_time_t button_hardware_get_system_time(void);
+
+#define MORSE_BUTTON_PORT GPIOE
+#define MORSE_BUTTON_PIN  GPIO_PIN_4
+
 #endif /* __BUTTON_HARDWARE_H */
