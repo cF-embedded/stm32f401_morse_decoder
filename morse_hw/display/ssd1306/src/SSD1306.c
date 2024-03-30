@@ -59,8 +59,7 @@
  */
 
 #include "SSD1306.h"
-#include "i2c.h"
-#include "gpio.h"
+#include "../../../inc/main.h"
 
 
 #define ssd1306_swap(a, b)                                                     \
