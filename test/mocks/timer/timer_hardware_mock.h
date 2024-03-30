@@ -1,7 +1,7 @@
 #ifndef __TIMER_HARDWARE_MOCK_H
 #define __TIMER_HARDWARE_MOCK_H
 
-#include "../../../timer/api/timer_hardware.h"
+#include "../../../morse_hw/timer/api/timer_hardware.h"
 
 void mock_timer_hardware_init(void);
 

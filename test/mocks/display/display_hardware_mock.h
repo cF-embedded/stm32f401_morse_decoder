@@ -6,7 +6,7 @@
 #ifndef __DISPLAY_HARDWARE_MOCK_H
 #define __DISPLAY_HARDWARE_MOCK_H
 
-#include "../../../display/api/display_hardware.h"
+#include "../../../morse_hw/display/api/display_hardware.h"
 #include <stdbool.h>
 
 void mock_display_hardware_init(void);

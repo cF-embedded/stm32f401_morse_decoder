@@ -6,7 +6,7 @@
 #ifndef __BUZZER_HARDWARE_MOCK_H
 #define __BUZZER_HARDWARE_MOCK_H
 
-#include "../../../buzzer/api/buzzer_hardware.h"
+#include "../../../morse_hw/buzzer/api/buzzer_hardware.h"
 #include <stdbool.h>
 
 void mock_buzzer_hardware_init(void);

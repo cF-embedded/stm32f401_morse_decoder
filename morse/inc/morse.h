@@ -6,15 +6,16 @@
 #ifndef __MORSE_H
 #define __MORSE_H
 
-#include "../../button/api/button.h"
-#include "../../buzzer/api/buzzer_hardware.h"
 #include "../../cbuf/cbuf.h"
-#include "../../display/api/display_hardware.h"
-#include "../../led/api/led_hardware.h"
-#include "../../timer/api/timer_hardware.h"
+#include "../../morse_hw/button/api/button.h"
+#include "../../morse_hw/buzzer/api/buzzer_hardware.h"
+#include "../../morse_hw/display/api/display_hardware.h"
+#include "../../morse_hw/led/api/led_hardware.h"
+#include "../../morse_hw/timer/api/timer_hardware.h"
 #include "morse_type.h"
 #include "stdbool.h"
 #include "stdint.h"
+
 
 typedef struct
 {

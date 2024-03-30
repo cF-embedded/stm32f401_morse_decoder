@@ -6,7 +6,7 @@
 #ifndef __LED_HARDWARE_MOCK_H
 #define __LED_HARDWARE_MOCK_H
 
-#include "../../../led/api/led_hardware.h"
+#include "../../../morse_hw/led/api/led_hardware.h"
 #include <stdbool.h>
 
 void mock_led_hardware_init(void);
