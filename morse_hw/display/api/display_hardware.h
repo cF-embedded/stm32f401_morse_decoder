@@ -24,4 +24,7 @@ void display_hardware_set_char(char);
 void display_hardware_clear(void);
 void display_hardware_set_header(void);
 
+/* dma irq */
+void DMA1_Stream6_IRQHandler(void);
+
 #endif /* __DISPLAY_HARDWARE_H */
