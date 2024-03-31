@@ -2,6 +2,8 @@
 #include "../../inc/main.h"
 #include "../ssd1306/inc/GFX.h"
 
+#define CHAR_OFFSET 5
+
 I2C_HandleTypeDef hi2c1;
 static DMA_HandleTypeDef hdma_i2c1_tx;
 
@@ -11,12 +13,19 @@ static void dma_init(void);
 
 void display_hardware_init(void)
 {
-    i2c_init();
     dma_init();
+    i2c_init();
     SSD1306_init();
+    SSD1306_display_clear();
 }
 
-void display_hardware_set_char(char char_to_display) {}
+void display_hardware_set_char(char char_to_display)
+{
+    static char_x_offset = 0;
+    GFX_draw_string(char_x_offset, 5, char_to_display, WHITE, BLACK, 1, 1);
+    char_x_offset += CHAR_OFFSET;
+    SSD1306_display_repaint();
+}
 
 void display_hardware_clear(void)
 {
@@ -25,8 +34,9 @@ void display_hardware_clear(void)
 
 void display_hardware_set_header(void)
 {
-    GFX_draw_string(1, 20, "MORSE DECODER", WHITE, BLACK, 1, 1);
-    GFX_draw_string(2, 12, "cf-embedded.pl", WHITE, BLACK, 1, 1);
+    GFX_draw_string(20, 20, "cf-embedded.pl", WHITE, BLACK, 1, 1);
+    GFX_draw_string(1, 10, "---------------------", WHITE, BLACK, 1, 1);
+    SSD1306_display_repaint();
 }
 
 static void i2c_init(void)

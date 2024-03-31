@@ -6,7 +6,7 @@ void led_hardware_init(void)
     GPIO_InitTypeDef GPIO_InitStruct = {0};
 
     /* GPIO Ports Clock Enable */
-    __HAL_RCC_GPIOE_CLK_ENABLE();
+    // __HAL_RCC_GPIOE_CLK_ENABLE();
 
     /*Configure GPIO pin Output Level */
     HAL_GPIO_WritePin(MORSE_LED_PORT, MORSE_LED_PIN, GPIO_PIN_RESET);
