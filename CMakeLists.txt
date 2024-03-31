@@ -13,7 +13,7 @@ message("Build type: " ${CMAKE_BUILD_TYPE})
 #
 # Core project settings
 #
-project(stm32_f401_morse_decoder)
+project(stm32f401_morse_decoder)
 enable_language(C CXX ASM)
 
 #
@@ -111,6 +111,8 @@ add_executable(${EXECUTABLE} ${sources_SRCS})
 
 # Include paths
 target_include_directories(${EXECUTABLE} PRIVATE ${include_path_DIRS})
+
+add_definitions(-DSTM32F401xx)
 
 # Project symbols
 target_compile_definitions(${EXECUTABLE} PRIVATE ${symbols_SYMB})
